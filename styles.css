@@ -1,0 +1,467 @@
+/* --- CSS VARIABLES (Amoled Theme) --- */
+:root {
+    --amoled-black: #000000;
+    --dark-surface: #0a0a0a;
+    --card-bg: #111111;
+    --text-main: #d1d5db;
+    --text-bright: #ffffff;
+    --accent-cyan: #00d2ff;
+    --accent-blue: #3a7bd5;
+    --border-color: #222222;
+}
+
+/* --- GLOBAL STYLES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--amoled-black);
+    color: var(--text-main);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+}
+
+/* --- STICKY HEADER & NAV --- */
+.main-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-bright);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.logo .accent, .accent-text {
+    color: var(--accent-cyan);
+}
+
+.nav-bar ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-bar a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.nav-bar a:hover, .nav-bar a.active {
+    color: var(--accent-cyan);
+}
+
+/* --- BUTTONS --- */
+.btn {
+    padding: 0.8rem 1.8rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+    color: var(--amoled-black);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+.btn-secondary:hover {
+    background: var(--accent-cyan);
+    color: var(--amoled-black);
+}
+
+.btn-nav {
+    background: var(--accent-cyan);
+    color: var(--amoled-black) !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+}
+
+.btn-nav:hover {
+    background: var(--text-bright);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+}
+
+/* --- PARALLAX HERO --- */
+.hero {
+    margin-top: 70px; /* Accounts for sticky header */
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), var(--amoled-black)), url('https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    color: var(--text-bright);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+}
+
+/* --- MAIN CONTAINER & HEADERS --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    color: var(--text-bright);
+}
+
+.title-underline {
+    width: 60px;
+    height: 4px;
+    background: var(--accent-cyan);
+    margin: 0.5rem auto;
+    border-radius: 2px;
+}
+
+.subtitle {
+    max-width: 700px;
+    margin: 1rem auto;
+    color: #9ca3af;
+}
+
+/* --- BANNER --- */
+.global-tip-banner {
+    background: linear-gradient(to right, #1a1a1a, var(--card-bg));
+    border-left: 4px solid #f59e0b;
+    padding: 1.5rem;
+    margin: -2rem auto 2rem auto;
+    max-width: 1000px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.tip-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.tip-icon {
+    font-size: 1.5rem;
+}
+
+/* --- SERVICE CARDS --- */
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 10px 30px rgba(0, 210, 255, 0.1);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.card h3 {
+    color: var(--text-bright);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.card p {
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+    color: #9ca3af;
+}
+
+.inline-tip {
+    background: var(--dark-surface);
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    border-left: 2px solid var(--accent-blue);
+}
+
+.card-link {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: auto;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+/* --- TABLES --- */
+.table-wrapper {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: var(--dark-surface);
+    color: var(--accent-cyan);
+    padding: 1.2rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+}
+
+td {
+    padding: 1.2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.price {
+    font-weight: 600;
+    color: var(--text-bright);
+}
+
+.tiny-text {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+/* --- BEFORE/AFTER PORTFOLIO --- */
+.before-after-center-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.before-after-container {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    width: 100%;
+    max-width: 800px;
+}
+
+.image-frame {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+}
+
+.slider-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.controls {
+    text-align: center;
+}
+
+/* --- FOOTER --- */
+footer {
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 4rem 2rem 2rem 2rem;
+}
+
+.footer-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-grid h4 {
+    color: var(--text-bright);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.footer-links a {
+    display: block;
+    color: var(--text-main);
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a:hover {
+    color: var(--accent-cyan);
+}
+
+.disclaimer-box {
+    background: rgba(255, 0, 0, 0.1);
+    border-left: 3px solid #ef4444;
+    padding: 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+/* --- SCROLL REVEAL ANIMATIONS --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- FORMS & INNER PAGES (Amoled Theme Additions) --- */
+.inner-page-pt {
+    padding-top: 120px; /* Pushes content down so it isn't hidden by the sticky header */
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-bright);
+}
+
+.form-control {
+    width: 100%;
+    padding: 1rem;
+    background: var(--dark-surface);
+    border: 1px solid var(--border-color);
+    color: var(--text-bright);
+    border-radius: 8px;
+    font-family: inherit;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+.testimonial-author {
+    color: var(--accent-cyan);
+    font-weight: 700;
+    margin-top: 1rem;
+    text-align: right;
+}
+
+.dynamic-field {
+    display: none; /* This is crucial! It keeps the field hidden initially */
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+}
+
+.dynamic-field.show {
+    display: block; /* The JS adds this class to make it visible */
+    animation: dropDownFade 0.4s forwards;
+}
+
+@keyframes dropDownFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

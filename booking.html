@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Service | TechRepairHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TechRepair<span class="accent">Hub</span></a>
+            <nav class="nav-bar">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="computer-services.html">Computers</a></li>
+                    <li><a href="smartphone-services.html">Smartphones</a></li>
+                    <li><a href="other-services.html">Solutions</a></li>
+                    <li><a href="booking.html" class="active btn-nav">Book Repair</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-wrapper inner-page-pt">
+        <div class="global-tip-banner reveal">
+            <div class="tip-content">
+                <span class="tip-icon">💡</span>
+                <p><strong>Ticketing Tip:</strong> Provide the exact motherboard or hardware model configuration sequence below to accelerate component acquisition schedules.</p>
+            </div>
+        </div>
+
+        <main class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Schedule Service Ticket</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="card reveal" style="max-width: 800px; margin: 0 auto; padding: 3rem;">
+                <form id="booking-request-form">
+                    <div class="form-group">
+                        <label for="client-name">Customer Name *</label>
+                        <input type="text" id="client-name" class="form-control" placeholder="e.g. Ahmad Razali" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-phone">Phone Contact *</label>
+                        <input type="tel" id="client-phone" class="form-control" placeholder="+60123456789" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-email">Email Address *</label>
+                        <input type="email" id="client-email" class="form-control" placeholder="ahmad@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="device-type">Device Type Category *</label>
+                        <select id="device-type" class="form-control" required>
+                            <option value="">-- Choose Category --</option>
+                            <option value="PC">Personal Computer / Laptop</option>
+                            <option value="Mobile">Smartphone Operating System</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="device-model">Brand / Model Specifications *</label>
+                        <input type="text" id="device-model" class="form-control" placeholder="e.g. MacBook Pro 2020 / Galaxy S22 Ultra" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                        <label for="service-cat">Specific Service Required *</label>
+
+                        <select id="service-cat" class="form-control" required>
+                            <option value="">-- Select Target Operation --</option>
+                            
+                            <optgroup label="Computer & Laptop Services">
+                                <option value="pc-format">Laptop/PC Formatting</option>
+                                <option value="pc-upgrade">SSD & RAM Upgrades</option>
+                                <option value="pc-virus">Virus & Malware Purging</option>
+                                <option value="pc-hardware">Component Replacements</option>
+                            </optgroup>
+
+                            <optgroup label="Smartphone Services">
+                                <option value="mobile-screen">Screen Replacement</option>
+                                <option value="mobile-battery">Battery Replacement</option>
+                                <option value="mobile-port">Charging Port Solutions</option>
+                                <option value="mobile-audio">Audio Array Refitting</option>
+                            </optgroup>
+
+                            <optgroup label="Predefined Packages (Other Services)">
+                                <option value="pkg-a">Package A: Basic Device Check-up</option>
+                                <option value="pkg-b">Package B: Laptop Formatting Suite</option>
+                                <option value="pkg-c">Package C: SSD/RAM Upgrade Drive</option>
+                                <option value="pkg-d">Package D: Smartphone Screen Repair</option>
+                                <option value="pkg-e">Package E: Battery Resuscitation</option>
+                                <option value="pkg-f">Package F: Water Damage Diagnostic</option>
+                            </optgroup>
+                            
+                            <optgroup label="Other">
+                                <option value="other-custom">Custom / Unsure (Describe Below)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+<div class="form-group dynamic-field" id="custom-service-group">
+                        <label for="custom-service-details">Please Specify Your Request *</label>
+                        <input type="text" id="custom-service-details" class="form-control" placeholder="e.g. Custom PC Building, Data Recovery, Console Repair...">
+                    </div>
+
+    <footer class="reveal">...</footer>
+    <script src="script.js"></script>
+</body>
+</html>
