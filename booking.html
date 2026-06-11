@@ -6,6 +6,22 @@
     <title>Book Service | TechRepairHub</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        .dynamic-field {
+            display: none; 
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.4s ease;
+        }
+        .dynamic-field.show {
+            display: block; 
+            animation: dropDownFade 0.4s forwards;
+        }
+        @keyframes dropDownFade {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
     <header class="main-header">
@@ -38,73 +54,172 @@
             </div>
 
             <div class="card reveal" style="max-width: 800px; margin: 0 auto; padding: 3rem;">
-                <form id="booking-request-form">
+                
+                <form id="booking-request-form" action="https://formspree.io/f/xpqejnkw" method="POST">
+                    
                     <div class="form-group">
                         <label for="client-name">Customer Name *</label>
-                        <input type="text" id="client-name" class="form-control" placeholder="e.g. Ahmad Razali" required>
+                        <input type="text" id="client-name" name="Customer_Name" class="form-control" placeholder="e.g. Ahmad Razali" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="client-phone">Phone Contact *</label>
-                        <input type="tel" id="client-phone" class="form-control" placeholder="+60123456789" required>
+                        <input type="tel" id="client-phone" name="Phone_Number" class="form-control" placeholder="+60123456789" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="client-email">Email Address *</label>
-                        <input type="email" id="client-email" class="form-control" placeholder="ahmad@example.com" required>
+                        <input type="email" id="client-email" name="email" class="form-control" placeholder="ahmad@example.com" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="device-type">Device Type Category *</label>
-                        <select id="device-type" class="form-control" required>
+                        <select id="device-type" name="Device_Type" class="form-control" required>
                             <option value="">-- Choose Category --</option>
-                            <option value="PC">Personal Computer / Laptop</option>
-                            <option value="Mobile">Smartphone Operating System</option>
+                            <option value="Personal Computer / Laptop">Personal Computer / Laptop</option>
+                            <option value="Smartphone">Smartphone Operating System</option>
                         </select>
                     </div>
+                    
                     <div class="form-group">
                         <label for="device-model">Brand / Model Specifications *</label>
-                        <input type="text" id="device-model" class="form-control" placeholder="e.g. MacBook Pro 2020 / Galaxy S22 Ultra" required>
+                        <input type="text" id="device-model" name="Device_Model" class="form-control" placeholder="e.g. MacBook Pro 2020 / Galaxy S22 Ultra" required>
                     </div>
+                    
                     <div class="form-group">
-                        <div class="form-group">
                         <label for="service-cat">Specific Service Required *</label>
-
-                        <select id="service-cat" class="form-control" required>
+                        <select id="service-cat" name="Service_Requested" class="form-control" required>
                             <option value="">-- Select Target Operation --</option>
-                            
                             <optgroup label="Computer & Laptop Services">
-                                <option value="pc-format">Laptop/PC Formatting</option>
-                                <option value="pc-upgrade">SSD & RAM Upgrades</option>
-                                <option value="pc-virus">Virus & Malware Purging</option>
-                                <option value="pc-hardware">Component Replacements</option>
+                                <option value="Laptop/PC Formatting">Laptop/PC Formatting</option>
+                                <option value="SSD & RAM Upgrades">SSD & RAM Upgrades</option>
+                                <option value="Virus & Malware Purging">Virus & Malware Purging</option>
+                                <option value="Component Replacements">Component Replacements</option>
                             </optgroup>
-
                             <optgroup label="Smartphone Services">
-                                <option value="mobile-screen">Screen Replacement</option>
-                                <option value="mobile-battery">Battery Replacement</option>
-                                <option value="mobile-port">Charging Port Solutions</option>
-                                <option value="mobile-audio">Audio Array Refitting</option>
+                                <option value="Screen Replacement">Screen Replacement</option>
+                                <option value="Battery Replacement">Battery Replacement</option>
+                                <option value="Charging Port Solutions">Charging Port Solutions</option>
+                                <option value="Audio Array Refitting">Audio Array Refitting</option>
                             </optgroup>
-
-                            <optgroup label="Predefined Packages (Other Services)">
-                                <option value="pkg-a">Package A: Basic Device Check-up</option>
-                                <option value="pkg-b">Package B: Laptop Formatting Suite</option>
-                                <option value="pkg-c">Package C: SSD/RAM Upgrade Drive</option>
-                                <option value="pkg-d">Package D: Smartphone Screen Repair</option>
-                                <option value="pkg-e">Package E: Battery Resuscitation</option>
-                                <option value="pkg-f">Package F: Water Damage Diagnostic</option>
+                            <optgroup label="Predefined Packages">
+                                <option value="Package A: Basic Check-up">Package A: Basic Device Check-up</option>
+                                <option value="Package B: Formatting Suite">Package B: Laptop Formatting Suite</option>
+                                <option value="Package C: SSD/RAM Upgrade">Package C: SSD/RAM Upgrade Drive</option>
+                                <option value="Package D: Screen Repair">Package D: Smartphone Screen Repair</option>
+                                <option value="Package E: Battery Resuscitation">Package E: Battery Resuscitation</option>
+                                <option value="Package F: Water Damage">Package F: Water Damage Diagnostic</option>
                             </optgroup>
-                            
                             <optgroup label="Other">
                                 <option value="other-custom">Custom / Unsure (Describe Below)</option>
                             </optgroup>
                         </select>
                     </div>
 
-<div class="form-group dynamic-field" id="custom-service-group">
+                    <div class="form-group dynamic-field" id="custom-service-group">
                         <label for="custom-service-details">Please Specify Your Request *</label>
-                        <input type="text" id="custom-service-details" class="form-control" placeholder="e.g. Custom PC Building, Data Recovery, Console Repair...">
+                        <input type="text" id="custom-service-details" name="Custom_Service_Details" class="form-control" placeholder="e.g. Custom PC Building, Data Recovery...">
                     </div>
 
-    <footer class="reveal">...</footer>
+                    <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem; padding: 1rem; font-size: 1.1rem; cursor: pointer;">
+                        Submit Repair Ticket
+                    </button>
+                    
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <footer class="reveal">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h4 class="logo">TechRepair<span class="accent">Hub</span></h4>
+                <p>Providing certified, transparent electronic maintenance configurations for consumer tech products since 2026.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Map</h4>
+                <a href="booking.html">Book Repair Ticket</a>
+                <a href="other-services.html">Other Operations</a>
+            </div>
+            <div class="footer-warning">
+                <h4>Compliance Guardrails</h4>
+                <div class="disclaimer-box">
+                    <strong>Notice:</strong> We strictly avoid operations that bypass device passwords, crack device locks, or install unlicensed software.
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 TechRepairHub.com | Formulated for the BERC2393 Academic Framework. All Rights Reserved.
+        </div>
+    </footer>
+    
     <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const serviceSelect = document.getElementById('service-cat');
+            const customServiceGroup = document.getElementById('custom-service-group');
+            const customServiceInput = document.getElementById('custom-service-details');
+
+            // 1. Auto-Select from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const serviceParam = urlParams.get('service');
+            
+            // Map the URL parameters back to the Formspree text values
+            const serviceMap = {
+                'pc-format': 'Laptop/PC Formatting',
+                'pc-upgrade': 'SSD & RAM Upgrades',
+                'pc-virus': 'Virus & Malware Purging',
+                'pc-hardware': 'Component Replacements',
+                'mobile-screen': 'Screen Replacement',
+                'mobile-battery': 'Battery Replacement',
+                'mobile-port': 'Charging Port Solutions',
+                'mobile-audio': 'Audio Array Refitting'
+            };
+
+            if (serviceParam && serviceSelect && serviceMap[serviceParam]) {
+                serviceSelect.value = serviceMap[serviceParam];
+            }
+
+            // 2. Hide/Show "Custom Request" box
+            const checkCustomField = () => {
+                if (serviceSelect && serviceSelect.value === 'other-custom') {
+                    if (customServiceGroup) customServiceGroup.classList.add('show');
+                    if (customServiceInput) customServiceInput.setAttribute('required', 'true');
+                } else {
+                    if (customServiceGroup) customServiceGroup.classList.remove('show');
+                    if (customServiceInput) customServiceInput.removeAttribute('required');
+                }
+            };
+            
+            if (serviceSelect) {
+                serviceSelect.addEventListener('change', checkCustomField);
+                checkCustomField(); 
+            }
+
+            // 3. LocalStorage Memory (Saves data right before sending to Formspree)
+            const bookingForm = document.getElementById('booking-request-form');
+            if (bookingForm) {
+                const savedName = localStorage.getItem('techRepair_Name');
+                const savedPhone = localStorage.getItem('techRepair_Phone');
+                const savedEmail = localStorage.getItem('techRepair_Email');
+
+                if (savedName) document.getElementById('client-name').value = savedName;
+                if (savedPhone) document.getElementById('client-phone').value = savedPhone;
+                if (savedEmail) document.getElementById('client-email').value = savedEmail;
+
+                bookingForm.addEventListener('submit', () => {
+                    // Save info to browser memory BEFORE the page redirects to Formspree
+                    const name = document.getElementById('client-name').value;
+                    const phone = document.getElementById('client-phone').value;
+                    const email = document.getElementById('client-email').value;
+
+                    localStorage.setItem('techRepair_Name', name);
+                    localStorage.setItem('techRepair_Phone', phone);
+                    localStorage.setItem('techRepair_Email', email);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
