@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // ----------------------------------------------------
     // 1. Before-After Hardware Image Switcher 
+    // ----------------------------------------------------
     const toggleBtn = document.getElementById('toggle-gallery-btn');
     const galleryImg = document.getElementById('gallery-view-img');
     
@@ -25,21 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Booking Intake Form Interceptor
-    const bookingForm = document.getElementById('booking-request-form');
-    if (bookingForm) {
-        bookingForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert("Success! Your device service request has been logged into our laboratory queue.");
-            bookingForm.reset();
-            // Hide the custom field again after submitting
-            if (customServiceGroup) {
-                customServiceGroup.classList.remove('show');
-            }
-        });
-    }
-
-    // 3. Scroll Reveal Animation Logic
+    // ----------------------------------------------------
+    // 2. Scroll Reveal Animation Logic
+    // ----------------------------------------------------
     const reveals = document.querySelectorAll('.reveal');
     const revealOptions = {
         threshold: 0.15, 
@@ -59,19 +49,23 @@ document.addEventListener('DOMContentLoaded', () => {
         revealOnScroll.observe(reveal);
     });
 
-    // 4 & 5. Booking Form Dropdown Auto-Select & Dynamic "Custom" Field Logic
+    // ----------------------------------------------------
+    // 3. Booking Form Logic (Dynamic Fields & Auto-Select)
+    // ----------------------------------------------------
     const serviceSelect = document.getElementById('service-cat');
     const customServiceGroup = document.getElementById('custom-service-group');
     const customServiceInput = document.getElementById('custom-service-details');
 
     if (serviceSelect) {
-        // Read the "?service=..." from the URL
+        // A. Auto-Select from URL parameter (If coming from Service Cards)
         const urlParams = new URLSearchParams(window.location.search);
         const serviceParam = urlParams.get('service');
+        if (serviceParam) {
+            serviceSelect.value = serviceParam;
+        }
 
-        // Function to check if we should show the "Specify Your Request" box
+        // B. Hide/Show "Custom Request" box dynamically
         const checkCustomField = () => {
-            // ONLY show if the value is exactly 'other-custom'
             if (serviceSelect.value === 'other-custom') {
                 if (customServiceGroup) customServiceGroup.classList.add('show');
                 if (customServiceInput) customServiceInput.setAttribute('required', 'true');
@@ -80,24 +74,86 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (customServiceInput) customServiceInput.removeAttribute('required');
             }
         };
-
-        // Listen for when the user manually changes the dropdown
+        
+        // Listen for changes and run once on load
         serviceSelect.addEventListener('change', checkCustomField);
+        checkCustomField(); 
+    }
 
-        // If a service parameter exists in URL, auto-select it!
-        if (serviceParam) {
-            serviceSelect.value = serviceParam;
+    // ----------------------------------------------------
+    // 4. Formspree Submission & LocalStorage Memory
+    // ----------------------------------------------------
+    const bookingForm = document.getElementById('booking-request-form');
+    
+    if (bookingForm) {
+        // Load details if they exist in memory (Impressive UX feature!)
+        const savedName = localStorage.getItem('techRepair_Name');
+        const savedPhone = localStorage.getItem('techRepair_Phone');
+        const savedEmail = localStorage.getItem('techRepair_Email');
+
+        if (savedName) document.getElementById('client-name').value = savedName;
+        if (savedPhone) document.getElementById('client-phone').value = savedPhone;
+        if (savedEmail) document.getElementById('client-email').value = savedEmail;
+
+        // Handle pressing Submit
+        bookingForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Stop standard redirect so we stay on the page
             
-            // Brief visual glow to show it was auto-selected
-            serviceSelect.style.borderColor = "var(--accent-cyan)";
-            serviceSelect.style.boxShadow = "0 0 15px rgba(0, 210, 255, 0.5)";
-            setTimeout(() => {
-                serviceSelect.style.boxShadow = "none";
-                serviceSelect.style.borderColor = "var(--border-color)";
-            }, 1500);
-        }
+            const submitBtn = document.getElementById('submit-btn');
+            
+            // Change button to show loading state
+            if(submitBtn) {
+                submitBtn.textContent = "Sending Request..."; 
+                submitBtn.style.opacity = "0.7";
+            }
 
-        // Run the custom field check immediately on page load
-        checkCustomField();
+            // Save customer details to memory for next time
+            localStorage.setItem('techRepair_Name', document.getElementById('client-name').value);
+            localStorage.setItem('techRepair_Phone', document.getElementById('client-phone').value);
+            localStorage.setItem('techRepair_Email', document.getElementById('client-email').value);
+
+            // Send the data to Formspree silently in the background
+            const formData = new FormData(bookingForm);
+            
+            try {
+                const response = await fetch(bookingForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    alert("Success! Your service ticket has been securely logged into our laboratory queue.");
+                    
+                    // Clear only the problem details, keep the name/email filled!
+                    document.getElementById('device-model').value = "";
+                    document.getElementById('problem-desc').value = "";
+                    if (customServiceInput) customServiceInput.value = "";
+                    
+                    // Hide custom field if it was open
+                    if (customServiceGroup) customServiceGroup.classList.remove('show');
+                    
+                    // Reset Button
+                    if(submitBtn) {
+                        submitBtn.textContent = "Submit Booking Request";
+                        submitBtn.style.opacity = "1";
+                    }
+                } else {
+                    alert("Oops! There was a problem sending your form. Please try again.");
+                    if(submitBtn) {
+                        submitBtn.textContent = "Submit Booking Request";
+                        submitBtn.style.opacity = "1";
+                    }
+                }
+            } catch (error) {
+                alert("Network error! Please check your internet connection.");
+                if(submitBtn) {
+                    submitBtn.textContent = "Submit Booking Request";
+                    submitBtn.style.opacity = "1";
+                }
+            }
+        });
     }
 });
