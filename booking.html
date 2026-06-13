@@ -6,7 +6,6 @@
     <title>Book Service | TechRepairHub</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    
     <style>
         .dynamic-field { display: none; opacity: 0; transform: translateY(-10px); transition: all 0.4s ease; }
         .dynamic-field.show { display: block; animation: dropDownFade 0.4s forwards; }
@@ -23,6 +22,7 @@
                     <li><a href="computer-services.html">Computers</a></li>
                     <li><a href="smartphone-services.html">Smartphones</a></li>
                     <li><a href="other-services.html">Solutions</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                     <li><a href="booking.html" class="active btn-nav">Book Repair</a></li>
                 </ul>
             </nav>
@@ -46,7 +46,9 @@
             <div class="card reveal" style="max-width: 800px; margin: 0 auto; padding: 3rem;">
                 
                 <form id="booking-request-form" action="https://formspree.io/f/xpqejnkw" method="POST">
-                <input type="hidden" name="_next" value="https://techrepair-hub.github.io/success.html">   
+                    
+                    <!-- HIDDEN REDIRECT: This is what magically routes them to the success page! -->
+                    <input type="hidden" name="_next" value="file:///C:/Users/NORIAH/Documents/testwebsite/success.html">
                     
                     <div class="form-group">
                         <label for="client-name">Customer Name *</label>
@@ -129,9 +131,8 @@
             </div>
             <div class="footer-links">
                 <h4>Quick Map</h4>
-                <!-- ADDED: Universal Google Maps Link -->
                 <a href="https://www.google.com/maps?sca_esv=a61294bd7b2aaade&biw=1275&bih=725&sxsrf=ANbL-n5QFMPyO3IDm-DUa3TT3At-mlhGSA:1781362323831&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3V0ZW0gZnRrZWsgbG9jYXRpb24yCBAAGIkFGKIEMggQABiABBiiBDIFEAAY7wVIihpQ4wpYmhlwAXgBkAEAmAFvoAGuCaoBBDEwLjS4AQPIAQD4AQGYAg-gAuMJwgIKEAAYRxjWBBiwA8ICCxAAGIAEGIoFGJECwgIFEAAYgATCAgsQLhiABBjHARivAcICBRAuGIAEwgIREC4YgAQYigUYkQIYxwEYrwHCAgsQLhiRAhiABBiKBcICBhAAGBYYHsICAhAmwgIFECEYoAHCAgcQIRgKGKABmAMAiAYBkAYIkgcEMTEuNKAHu0GyBwQxMC40uAffCcIHBTMuNy41yAcjgAgB&um=1&ie=UTF-8&fb=1&gl=my&sa=X&geocode=KcFuphls5NExMdoNBBYgnMCj&daddr=76100+Durian+Tunggal,+Malacca" target="_blank" style="color: var(--accent-cyan);">
-                    📍 Find us here! 📍
+                    📍 Open Google Maps
                 </a>
                 <a href="booking.html">Book Repair Ticket</a>
                 <a href="other-services.html">Other Operations</a>
@@ -149,86 +150,5 @@
     </footer>
     
     <script src="script.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const serviceSelect = document.getElementById('service-cat');
-            const deviceSelect = document.getElementById('device-type');
-            const customServiceGroup = document.getElementById('custom-service-group');
-            const customServiceInput = document.getElementById('custom-service-details');
-
-            // 1. Auto-Select from URL parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const serviceParam = urlParams.get('service');
-            
-            // Map ALL URL parameters back to the dropdown text values
-            const serviceMap = {
-                'pc-format': 'Laptop/PC Formatting',
-                'pc-upgrade': 'SSD & RAM Upgrades',
-                'pc-virus': 'Virus & Malware Purging',
-                'pc-hardware': 'Component Replacements',
-                'mobile-screen': 'Screen Replacement',
-                'mobile-battery': 'Battery Replacement',
-                'mobile-port': 'Charging Port Solutions',
-                'mobile-audio': 'Audio Array Refitting',
-                'pkg-a': 'Package A: Basic Check-up',
-                'pkg-b': 'Package B: Formatting Suite',
-                'pkg-c': 'Package C: SSD/RAM Upgrade',
-                'pkg-d': 'Package D: Screen Repair',
-                'pkg-e': 'Package E: Battery Resuscitation',
-                'pkg-f': 'Package F: Water Damage'
-            };
-
-            if (serviceParam && serviceSelect && serviceMap[serviceParam]) {
-                // Set the Specific Service automatically
-                serviceSelect.value = serviceMap[serviceParam];
-                
-                // SMART FEATURE: Auto-select the matching Device Type!
-                if (deviceSelect) {
-                    // Computer-specific packages
-                    if (serviceParam.startsWith('pc-') || serviceParam === 'pkg-b' || serviceParam === 'pkg-c') {
-                        deviceSelect.value = 'Personal Computer / Laptop';
-                    } 
-                    // Smartphone-specific packages
-                    else if (serviceParam.startsWith('mobile-') || serviceParam === 'pkg-d' || serviceParam === 'pkg-e') {
-                        deviceSelect.value = 'Smartphone Operating System';
-                    }
-                    // (Packages A and F are left blank so the user can decide what device needs the generic checkup/water damage repair)
-                }
-            }
-
-            // 2. Hide/Show "Custom Request" box
-            const checkCustomField = () => {
-                if (serviceSelect && serviceSelect.value === 'other-custom') {
-                    if (customServiceGroup) customServiceGroup.classList.add('show');
-                    if (customServiceInput) customServiceInput.setAttribute('required', 'true');
-                } else {
-                    if (customServiceGroup) customServiceGroup.classList.remove('show');
-                    if (customServiceInput) customServiceInput.removeAttribute('required');
-                }
-            };
-            
-            if (serviceSelect) {
-                serviceSelect.addEventListener('change', checkCustomField);
-                checkCustomField(); 
-            }
-
-            // 3. LocalStorage Memory 
-            const bookingForm = document.getElementById('booking-request-form');
-            if (bookingForm) {
-                const savedName = localStorage.getItem('techRepair_Name');
-                const savedPhone = localStorage.getItem('techRepair_Phone');
-                const savedEmail = localStorage.getItem('techRepair_Email');
-
-                if (savedName) document.getElementById('client-name').value = savedName;
-                if (savedPhone) document.getElementById('client-phone').value = savedPhone;
-                if (savedEmail) document.getElementById('client-email').value = savedEmail;
-
-                bookingForm.addEventListener('submit', () => {
-                    localStorage.setItem('techRepair_Name', document.getElementById('client-name').value);
-                    localStorage.setItem('techRepair_Phone', document.getElementById('client-phone').value);
-                    localStorage.setItem('techRepair_Email', document.getElementById('client-email').value);
-                });
-            }
-        });
-    </script>
+</body>
+</html>
