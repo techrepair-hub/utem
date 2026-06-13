@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 showingBefore = false;
             } else {
                 img.src = beforeImageSrc;
-                btn.textContent = "Show After (Completed Battery Replacement)";
+                btn.textContent = "Show After";
                 btn.classList.remove('btn-primary');
                 btn.classList.add('btn-secondary');
                 showingBefore = true;
