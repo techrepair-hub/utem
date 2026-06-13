@@ -1,31 +1,73 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+   // ----------------------------------------------------
+    // 1. Sliding Portfolio Carousel & Before/After Toggle
     // ----------------------------------------------------
-    // 1. Before-After Hardware Image Switcher 
-    // ----------------------------------------------------
-    const toggleBtn = document.getElementById('toggle-gallery-btn');
-    const galleryImg = document.getElementById('gallery-view-img');
     
-    if (toggleBtn && galleryImg) {
-        let showingBefore = true;
-        toggleBtn.addEventListener('click', () => {
+    // A. The Sliding Carousel Logic
+    const track = document.getElementById('carousel-track');
+    const prevBtn = document.getElementById('prev-slide-btn');
+    const nextBtn = document.getElementById('next-slide-btn');
+    
+    if (track && prevBtn && nextBtn) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        let currentIndex = 0;
+
+        const updateSlidePosition = () => {
+            // Moves the track horizontally by exactly 100% per slide
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        };
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < slides.length - 1) {
+                currentIndex++;
+            } else {
+                currentIndex = 0; // Loop back to the first slide
+            }
+            updateSlidePosition();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = slides.length - 1; // Loop back to the last slide
+            }
+            updateSlidePosition();
+        });
+    }
+
+    // B. The Before/After Toggle Logic for Multiple Slides
+    const toggleBtns = document.querySelectorAll('.toggle-gallery-btn');
+    
+    toggleBtns.forEach(btn => {
+        // Each button keeps track of its own state
+        let showingBefore = true; 
+        
+        btn.addEventListener('click', (e) => {
+            // Find the specific image that belongs to THIS button
+            const slide = e.target.closest('.carousel-slide');
+            const img = slide.querySelector('.gallery-img');
+            
+            // Read the file names assigned in the HTML data attributes
+            const beforeImageSrc = btn.getAttribute('data-before');
+            const afterImageSrc = btn.getAttribute('data-after');
+
             if (showingBefore) {
-                galleryImg.src = "after.jpeg";
-                galleryImg.alt = "Clean Finished Internal Hardware Mainboard Calibration Layout";
-                toggleBtn.textContent = "Show Before (Opened Hardware Inspection)";
-                toggleBtn.classList.remove('btn-secondary');
-                toggleBtn.classList.add('btn-primary');
+                img.src = afterImageSrc;
+                btn.textContent = "Show Before";
+                btn.classList.remove('btn-secondary');
+                btn.classList.add('btn-primary');
                 showingBefore = false;
             } else {
-                galleryImg.src = "before.jpeg";
-                galleryImg.alt = "Swollen Laptop Lithium-Polymer Battery Inspection Field";
-                toggleBtn.textContent = "Show After (Completed Hardware Repair)";
-                toggleBtn.classList.remove('btn-primary');
-                toggleBtn.classList.add('btn-secondary');
+                img.src = beforeImageSrc;
+                btn.textContent = "Show After (Completed Battery Replacement)";
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-secondary');
                 showingBefore = true;
             }
         });
-    }
+    });
 
     // ----------------------------------------------------
     // 2. Scroll Reveal Animation Logic
