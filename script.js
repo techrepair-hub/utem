@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const submitBtn = form.querySelector('button[type="submit"]');
             if (submitBtn) {
-                submitBtn.textContent = "Transmitting to Lab...";
+                submitBtn.textContent = "Submitting ticket...";
                 submitBtn.style.opacity = "0.7";
                 submitBtn.style.pointerEvents = "none";
             }
