@@ -344,12 +344,18 @@ tr:hover {
 .slider-img {
     width: 100%;
     height: auto;
+    max-height: 35vh;
     display: block;
 }
 
 .controls {
     text-align: center;
+    width: 100%;
 }
+
+.controls .btn {
+        width: 100%; 
+    }
 
 /* --- FOOTER --- */
 footer {
@@ -575,7 +581,7 @@ textarea.form-control {
     ..carousel-slide {
     min-width: 100%; 
     /* CHANGED: Increased the side padding from 2rem to 5rem to make a perfect gap for the buttons! */
-    padding: 2.5rem 5rem; 
+    padding: 1rem 2.8rem;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -584,17 +590,23 @@ textarea.form-control {
 }
 
 /* Placed perfectly centered in the new side-margins */
-.prev-btn {
-    left: 2.5rem; 
-}
+   .prev-btn { 
+        left: 0.3rem; 
+        width: 32px;
+        height: 48px;
+        font-size: 1.1rem;
+    }
 
-.next-btn {
-    right: 2.5rem; 
-}
+  .next-btn { 
+        right: 0.3rem; 
+        width: 32px;
+        height: 48px;
+        font-size: 1.1rem;
+    }
 
 .carousel-nav {
     position: absolute;
-    top: 40%; /* Adjusted slightly to perfectly center with the image */
+    top: 38%; /* Adjusted slightly to perfectly center with the image */
     transform: translateY(-50%);
     background: rgba(10, 10, 10, 0.75); 
     color: var(--text-bright);
