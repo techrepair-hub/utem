@@ -8,19 +8,9 @@
     <link rel="stylesheet" href="styles.css">
     
     <style>
-        .dynamic-field {
-            display: none; 
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.4s ease;
-        }
-        .dynamic-field.show {
-            display: block; 
-            animation: dropDownFade 0.4s forwards;
-        }
-        @keyframes dropDownFade {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .dynamic-field { display: none; opacity: 0; transform: translateY(-10px); transition: all 0.4s ease; }
+        .dynamic-field.show { display: block; animation: dropDownFade 0.4s forwards; }
+        @keyframes dropDownFade { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -77,7 +67,7 @@
                         <select id="device-type" name="Device_Type" class="form-control" required>
                             <option value="">-- Choose Category --</option>
                             <option value="Personal Computer / Laptop">Personal Computer / Laptop</option>
-                            <option value="Smartphone">Smartphone Operating System</option>
+                            <option value="Smartphone Operating System">Smartphone Operating System</option>
                         </select>
                     </div>
                     
@@ -158,6 +148,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const serviceSelect = document.getElementById('service-cat');
+            const deviceSelect = document.getElementById('device-type');
             const customServiceGroup = document.getElementById('custom-service-group');
             const customServiceInput = document.getElementById('custom-service-details');
 
@@ -165,7 +156,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const serviceParam = urlParams.get('service');
             
-            // Map the URL parameters back to the Formspree text values
+            // Map ALL URL parameters back to the dropdown text values
             const serviceMap = {
                 'pc-format': 'Laptop/PC Formatting',
                 'pc-upgrade': 'SSD & RAM Upgrades',
@@ -174,11 +165,31 @@
                 'mobile-screen': 'Screen Replacement',
                 'mobile-battery': 'Battery Replacement',
                 'mobile-port': 'Charging Port Solutions',
-                'mobile-audio': 'Audio Array Refitting'
+                'mobile-audio': 'Audio Array Refitting',
+                'pkg-a': 'Package A: Basic Check-up',
+                'pkg-b': 'Package B: Formatting Suite',
+                'pkg-c': 'Package C: SSD/RAM Upgrade',
+                'pkg-d': 'Package D: Screen Repair',
+                'pkg-e': 'Package E: Battery Resuscitation',
+                'pkg-f': 'Package F: Water Damage'
             };
 
             if (serviceParam && serviceSelect && serviceMap[serviceParam]) {
+                // Set the Specific Service automatically
                 serviceSelect.value = serviceMap[serviceParam];
+                
+                // SMART FEATURE: Auto-select the matching Device Type!
+                if (deviceSelect) {
+                    // Computer-specific packages
+                    if (serviceParam.startsWith('pc-') || serviceParam === 'pkg-b' || serviceParam === 'pkg-c') {
+                        deviceSelect.value = 'Personal Computer / Laptop';
+                    } 
+                    // Smartphone-specific packages
+                    else if (serviceParam.startsWith('mobile-') || serviceParam === 'pkg-d' || serviceParam === 'pkg-e') {
+                        deviceSelect.value = 'Smartphone Operating System';
+                    }
+                    // (Packages A and F are left blank so the user can decide what device needs the generic checkup/water damage repair)
+                }
             }
 
             // 2. Hide/Show "Custom Request" box
@@ -197,7 +208,7 @@
                 checkCustomField(); 
             }
 
-            // 3. LocalStorage Memory (Saves data right before sending to Formspree)
+            // 3. LocalStorage Memory 
             const bookingForm = document.getElementById('booking-request-form');
             if (bookingForm) {
                 const savedName = localStorage.getItem('techRepair_Name');
@@ -209,17 +220,10 @@
                 if (savedEmail) document.getElementById('client-email').value = savedEmail;
 
                 bookingForm.addEventListener('submit', () => {
-                    // Save info to browser memory BEFORE the page redirects to Formspree
-                    const name = document.getElementById('client-name').value;
-                    const phone = document.getElementById('client-phone').value;
-                    const email = document.getElementById('client-email').value;
-
-                    localStorage.setItem('techRepair_Name', name);
-                    localStorage.setItem('techRepair_Phone', phone);
-                    localStorage.setItem('techRepair_Email', email);
+                    localStorage.setItem('techRepair_Name', document.getElementById('client-name').value);
+                    localStorage.setItem('techRepair_Phone', document.getElementById('client-phone').value);
+                    localStorage.setItem('techRepair_Email', document.getElementById('client-email').value);
                 });
             }
         });
     </script>
-</body>
-</html>
