@@ -39,13 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (showingBefore) {
                 img.src = afterImageSrc;
-                btn.textContent = "Show Before (Opened Hardware Inspection)";
+                btn.textContent = "Show Before Repair";
                 btn.classList.remove('btn-secondary');
                 btn.classList.add('btn-primary');
                 showingBefore = false;
             } else {
                 img.src = beforeImageSrc;
-                btn.textContent = "Show After (Completed Hardware Repair)";
+                btn.textContent = "Show After Repair";
                 btn.classList.remove('btn-primary');
                 btn.classList.add('btn-secondary');
                 showingBefore = true;
