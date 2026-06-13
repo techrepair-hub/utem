@@ -6,6 +6,48 @@
     <title>Contact Us | TechRepairHub</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Premium Interactive Map Box Styling */
+        .map-container-link {
+            width: 100%;
+            height: 350px;
+            /* Uses a dark map background from Unsplash */
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.8)), url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            padding: 1.5rem;
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+
+        .map-container-link:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 40px rgba(0, 210, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .map-button-pill {
+            background: var(--accent-cyan);
+            color: #000;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4);
+            transition: all 0.3s;
+        }
+
+        .map-container-link:hover .map-button-pill {
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.6);
+        }
+    </style>
 </head>
 <body>
     <header class="main-header">
@@ -47,15 +89,26 @@
 
                 <div class="card reveal">
                     <h3>Quick Message Gateway</h3>
-                    <div class="form-group" style="margin-top: 1rem;">
-                        <label>Customer Name</label>
-                        <input type="text" class="form-control" placeholder="Sarah Lim">
-                    </div>
-                    <div class="form-group">
-                        <label>Inquiry Message</label>
-                        <textarea class="form-control" rows="4" placeholder="State your repair inquiry or quick hardware questions here..."></textarea>
-                    </div>
-                    <button type="button" onclick="alert('Message simulation tracked successfully.')" class="btn btn-primary" style="width:100%;">Send Secure Message</button>
+                    
+                    <form action="https://formspree.io/f/xpqejnkw" method="POST">
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label>Customer Name *</label>
+                            <input type="text" name="Contact_Name" class="form-control" placeholder="Sarah Lim" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" name="Contact_Email" class="form-control" placeholder="sarah@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Inquiry Message *</label>
+                            <textarea name="Contact_Message" class="form-control" rows="4" placeholder="State your repair inquiry or quick hardware questions here..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width:100%; cursor: pointer;">Send Secure Message</button>
+                    </form>
+
                 </div>
             </div>
 
@@ -64,16 +117,48 @@
                 <div class="title-underline"></div>
             </div>
             
-            <div class="reveal" style="width:100%; height:350px; background-color:var(--card-bg); border-radius:12px; display:flex; justify-content:center; align-items:center; border:1px solid var(--border-color); box-shadow: inset 0 0 50px rgba(0, 210, 255, 0.05); text-align:center; padding:1.5rem;">
+            <!-- YOUR GOOGLE MAPS LINK INTEGRATION IS HERE -->
+            <a href="https://www.google.com/maps?sca_esv=a61294bd7b2aaade&biw=1275&bih=725&sxsrf=ANbL-n5QFMPyO3IDm-DUa3TT3At-mlhGSA:1781362323831&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3V0ZW0gZnRrZWsgbG9jYXRpb24yCBAAGIkFGKIEMggQABiABBiiBDIFEAAY7wVIihpQ4wpYmhlwAXgBkAEAmAFvoAGuCaoBBDEwLjS4AQPIAQD4AQGYAg-gAuMJwgIKEAAYRxjWBBiwA8ICCxAAGIAEGIoFGJECwgIFEAAYgATCAgsQLhiABBjHARivAcICBRAuGIAEwgIREC4YgAQYigUYkQIYxwEYrwHCAgsQLhiRAhiABBiKBcICBhAAGBYYHsICAhAmwgIFECEYoAHCAgcQIRgKGKABmAMAiAYBkAYIkgcEMTEuNKAHu0GyBwQxMC40uAffCcIHBTMuNy41yAcjgAgB&um=1&ie=UTF-8&fb=1&gl=my&sa=X&geocode=KcFuphls5NExMdoNBBYgnMCj&daddr=76100+Durian+Tunggal,+Malacca" target="_blank" class="map-container-link reveal">
                 <span>
-                    <strong style="color:var(--accent-cyan); font-size: 1.2rem;">[Interactive Map Integration Framework Container]</strong><br>
-                    <small style="font-weight:400; color:#9ca3af; display:block; margin-top: 1rem;">TechRepairHub Main Intake Workshop<br>Johor Bahru, Johor, Malaysia</small>
+                    <div class="map-button-pill">📍 Open in Google Maps</div>
+                    <small style="font-weight:600; color:#e5e7eb; display:block; margin-top: 1.5rem; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">
+                        TechRepairHub Main Intake Workshop<br>
+                        76100 Durian Tunggal, Malacca
+                    </small>
                 </span>
-            </div>
+            </a>
+            
         </main>
     </div>
 
-    <footer class="reveal">...</footer>
+    <!-- The Fully Restored Footer (No Missing Dots!) -->
+    <footer class="reveal">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h4 class="logo">TechRepair<span class="accent">Hub</span></h4>
+                <p>Providing certified, transparent electronic maintenance configurations for consumer tech products since 2026.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Map</h4>
+                <!-- The footer map link goes to the same location -->
+                <a href="https://www.google.com/maps?sca_esv=a61294bd7b2aaade&biw=1275&bih=725&sxsrf=ANbL-n5QFMPyO3IDm-DUa3TT3At-mlhGSA:1781362323831&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3V0ZW0gZnRrZWsgbG9jYXRpb24yCBAAGIkFGKIEMggQABiABBiiBDIFEAAY7wVIihpQ4wpYmhlwAXgBkAEAmAFvoAGuCaoBBDEwLjS4AQPIAQD4AQGYAg-gAuMJwgIKEAAYRxjWBBiwA8ICCxAAGIAEGIoFGJECwgIFEAAYgATCAgsQLhiABBjHARivAcICBRAuGIAEwgIREC4YgAQYigUYkQIYxwEYrwHCAgsQLhiRAhiABBiKBcICBhAAGBYYHsICAhAmwgIFECEYoAHCAgcQIRgKGKABmAMAiAYBkAYIkgcEMTEuNKAHu0GyBwQxMC40uAffCcIHBTMuNy41yAcjgAgB&um=1&ie=UTF-8&fb=1&gl=my&sa=X&geocode=KcFuphls5NExMdoNBBYgnMCj&daddr=76100+Durian+Tunggal,+Malacca" target="_blank" style="color: var(--accent-cyan);">
+                    📍 Open Google Maps
+                </a>
+                <a href="booking.html">Book Repair Ticket</a>
+                <a href="other-services.html">Other Operations</a>
+            </div>
+            <div class="footer-warning">
+                <h4>Compliance Guardrails</h4>
+                <div class="disclaimer-box">
+                    <strong>Notice:</strong> We strictly avoid operations that bypass device passwords, crack device locks, or install unlicensed software.
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 TechRepairHub.com | Formulated for the BERC2393 Academic Framework. All Rights Reserved.
+        </div>
+    </footer>
+    
     <script src="script.js"></script>
 </body>
 </html>
