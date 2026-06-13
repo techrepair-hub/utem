@@ -189,12 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         submitBtn.style.opacity = "1";
                     }
                 }
-            } catch (error) {
-                alert("Network error! Please check your internet connection.");
-                if(submitBtn) {
-                    submitBtn.textContent = "Submit Booking Request";
-                    submitBtn.style.opacity = "1";
-                }
             }
         });
     }
