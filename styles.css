@@ -225,6 +225,8 @@ main.container .section-header:first-child {
     transition: all 0.4s ease;
     display: flex;
     flex-direction: column;
+    flex: 1 1 300px; /* Allows cards to shrink/grow but keep base width */
+    max-width: 380px; /* Prevents orphaned cards from stretching too wide */
 }
 
 .card:hover {
@@ -474,7 +476,7 @@ textarea.form-control {
     }
 }
 
-/* --- PORTFOLIO SLIDER CAROUSEL --- */
+/* --- PORTFOLIO SLIDER CAROUSEL (MINIMALIST & MOBILE OPTIMIZED) --- */
 .portfolio-carousel-wrapper {
     position: relative;
     max-width: 900px;
@@ -486,7 +488,7 @@ textarea.form-control {
 
 .carousel-viewport {
     width: 100%;
-    overflow: hidden; /* Hides the slides that are off-screen */
+    overflow: hidden; 
     background: var(--card-bg);
     border-radius: 12px;
     border: 1px solid var(--border-color);
@@ -496,31 +498,52 @@ textarea.form-control {
 .carousel-track {
     display: flex;
     width: 100%;
-    /* THIS line creates the smooth sliding animation! */
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+    align-items: center; /* This perfectly centers images vertically to fix the empty space! */
 }
 
 .carousel-slide {
-    min-width: 100%; /* Forces each slide to take up exactly 100% of the viewport */
-    padding: 2rem;
+    min-width: 100%; 
+    /* CHANGED: Increased the side padding from 2rem to 5rem to make a perfect gap for the buttons! */
+    padding: 2.5rem 5rem; 
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
-/* Side Navigation Arrows */
+/* Image Centering Rules */
+.image-frame {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    background: #000; /* Creates a cinematic black background for narrower images */
+}
+
+.slider-img {
+    width: 100%;
+    max-height: 500px; /* Stops vertical images from stretching the card out of control */
+    object-fit: contain; /* Forces the image to perfectly center and scale */
+    display: block;
+}
+
+/* Minimalist Side Navigation Arrows (Rectangles instead of Circles) */
 .carousel-nav {
     position: absolute;
-    top: 40%;
+    top: 42%; /* Sits higher up, perfectly aligned with the image */
     transform: translateY(-50%);
-    background: var(--dark-surface);
-    color: var(--accent-cyan);
-    border: 2px solid var(--accent-cyan);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 1.5rem;
+    background: rgba(10, 10, 10, 0.75); /* Minimalist dark glass effect */
+    color: var(--text-bright);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 44px;
+    height: 64px; /* Makes it a rectangle */
+    border-radius: 8px; /* Smooth corners */
+    font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
     z-index: 10;
@@ -528,28 +551,66 @@ textarea.form-control {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 15px rgba(0, 210, 255, 0.1);
+    backdrop-filter: blur(5px); /* Frosted glass blur */
 }
 
 .carousel-nav:hover {
     background: var(--accent-cyan);
     color: var(--amoled-black);
-    box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
 }
 
+/* Placed fully INSIDE the borders */
 .prev-btn {
-    left: -25px; /* Pushes arrow slightly outside the box */
+    left: 1.5rem; 
 }
 
 .next-btn {
-    right: -25px;
+    right: 1.5rem; 
 }
 
-/* Make arrows fit safely inside the screen on Mobile */
+/* Mobile specific tweaks for a flawless app-like fit */
 @media (max-width: 768px) {
-    .prev-btn { left: 10px; }
-    .next-btn { right: 10px; }
-    .carousel-slide { padding: 1.5rem; }
+    ..carousel-slide {
+    min-width: 100%; 
+    /* CHANGED: Increased the side padding from 2rem to 5rem to make a perfect gap for the buttons! */
+    padding: 2.5rem 5rem; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Placed perfectly centered in the new side-margins */
+.prev-btn {
+    left: 2.5rem; 
+}
+
+.next-btn {
+    right: 2.5rem; 
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 40%; /* Adjusted slightly to perfectly center with the image */
+    transform: translateY(-50%);
+    background: rgba(10, 10, 10, 0.75); 
+    color: var(--text-bright);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 44px;
+    height: 64px; 
+    border-radius: 8px; 
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px); 
 }
 
 
@@ -628,8 +689,13 @@ textarea.form-control {
 
     /* 6. Stack Grid Cards 1-by-1 instead of trying to fit side-by-side */
     .grid-cards {
-        grid-template-columns: 1fr;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* This perfectly centers the bottom row! */
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
     /* 7. Let the Pricing Table scroll horizontally so it doesn't crush the layout */
     .table-wrapper {
