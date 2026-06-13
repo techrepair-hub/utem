@@ -40,7 +40,7 @@
         <div class="global-tip-banner reveal">
             <div class="tip-content">
                 <span class="tip-icon">💡</span>
-                <p><strong>Omnipresent Tech Tip:</strong> Always secure your internal storage architectures! Operating deep formatting runs or massive physical system component replacements without backing up user folders can risk catastrophic sector loss.</p>
+                <p><strong>Smart Tech Tip:</strong> Always backup you internal storage before sending in for repair! Operating deep formatting or important physical system component replacements without backing up user data can risk memory loss.</p>
             </div>
         </div>
 
@@ -115,37 +115,60 @@
                 <div class="title-underline"></div>
             </div>
 
-            <div class="before-after-center-wrapper reveal">
-                <div class="before-after-container">
-                    <div class="image-frame">
-                        <img id="gallery-view-img" class="slider-img" src="before.jpeg" alt="Swollen Laptop Lithium-Polymer Battery Inspection Field">
-                    </div>
-                    <div class="controls">
-                        <button id="toggle-gallery-btn" class="btn btn-secondary">Show After (Completed Hardware Repair)</button>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
+            <!-- NEW SLIDING CAROUSEL MODULE -->
+            <div class="portfolio-carousel-wrapper reveal">
+                <!-- Left Navigation Button -->
+                <button id="prev-slide-btn" class="carousel-nav prev-btn">&#10094;</button>
+                
+                <div class="carousel-viewport">
+                    <div class="carousel-track" id="carousel-track">
+                        
+                        <!-- SLIDE 1 (Your Original Image) -->
+                        <div class="carousel-slide">
+                            <div class="image-frame">
+                                <img class="gallery-img slider-img" src="before.jpeg" alt="Project 1">
+                            </div>
+                            <div class="controls">
+                                <button class="btn btn-secondary toggle-gallery-btn" data-before="before.jpeg" data-after="after.jpeg">Show After (Completed Hardware Repair)</button>
+                            </div>
+                        </div>
 
-    <footer class="reveal">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h4 class="logo">TechRepair<span class="accent">Hub</span></h4>
-                <p>Providing certified, transparent electronic maintenance configurations for consumer tech products since 2026.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Quick Map</h4>
-                <a href="booking.html">Book Repair Ticket</a>
-                <a href="other-services.html">Other Operations</a>
-            </div>
-            <div class="footer-warning">
-                <h4>Compliance Guardrails</h4>
-                <div class="disclaimer-box">
-                    <strong>Notice:</strong> We strictly avoid operations that bypass device passwords, crack device locks, or install unlicensed software.
+                        <!-- SLIDE 2 (New Slot) -->
+                        <div class="carousel-slide">
+                            <div class="image-frame">
+                                <img class="gallery-img slider-img" src="before2.png" alt="Project 2">
+                            </div>
+                            <div class="controls">
+                                <button class="btn btn-secondary toggle-gallery-btn" data-before="before2.png" data-after="after2.png">Show After (Completed Backglass Replacement)</button>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 3 (New Slot) -->
+                        <div class="carousel-slide">
+                            <div class="image-frame">
+                                <img class="gallery-img slider-img" src="before3.png" alt="Project 3">
+                            </div>
+                            <div class="controls">
+                                <button class="btn btn-secondary toggle-gallery-btn" data-before="before3.png" data-after="after3.png">Show After (Completed Internal Cleaning)</button>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 4 (New Slot) -->
+                        <div class="carousel-slide">
+                            <div class="image-frame">
+                                <img class="gallery-img slider-img" src="before4.png" alt="Project 4">
+                            </div>
+                            <div class="controls">
+                                <button class="btn btn-secondary toggle-gallery-btn" data-before="before4.png" data-after="after4.png">Show After (Screen Line Repair)</button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+
+                <!-- Right Navigation Button -->
+                <button id="next-slide-btn" class="carousel-nav next-btn">&#10095;</button>
             </div>
-        </div>
         <div class="footer-bottom">
             &copy; 2026 TechRepairHub.com | Formulated for the BERC2393 Academic Framework. All Rights Reserved.
         </div>
