@@ -37,7 +37,7 @@ body {
 }
 
 .nav-container {
-    max-width: 1200px;
+    max-width: 1800px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -576,23 +576,29 @@ textarea.form-control {
     right: 1.5rem; 
 }
 
-/* --- ABOUT US: TEAM GRID --- */
+/* --- ABOUT US: TEAM GRID (EDGE-TO-EDGE IMAGE DESIGN) --- */
+/* --- ABOUT US: TEAM GRID (3 TOP, 2 BOTTOM) --- */
 .team-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
+    max-width: 1050px;
+    margin: 0 auto;
 }
 
 .team-card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 2rem 1.5rem;
-    text-align: center;
-    flex: 1 1 200px;
-    max-width: 260px;
+    padding: 0;
+    text-align: left;
+    flex: 0 0 300px;
+    max-width: 300px;
     transition: all 0.4s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .team-card:hover {
@@ -602,27 +608,56 @@ textarea.form-control {
 }
 
 .team-img {
-    width: 120px;
-    height: 120px;
-    /* CHANGED: 32px creates a beautiful, modern 'squircle' shape */
-    border-radius: 32px; 
+    width: 100%;
+    height: 280px;
     background: #1a1a1a;
-    margin: 0 auto 1.5rem auto;
-    /* CHANGED: Solid black outline */
-    border: 4px solid #000000; 
     object-fit: cover;
     display: block;
-    /* ADDED: A subtle drop shadow so the black border pops against the dark card */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); 
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.team-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.team-content h3 {
+    color: var(--text-bright);
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
 }
 
 .team-role {
+    display: inline-block;
+    background: rgba(0, 210, 255, 0.1);
     color: var(--accent-cyan);
-    font-size: 0.9rem;
-    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
     margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    align-self: flex-start;
+}
+
+.team-experience {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-bottom: 1.2rem;
+}
+
+.team-desc {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    flex-grow: 3;
 }
 
 /* Mobile specific tweaks for a flawless app-like fit */
