@@ -604,12 +604,16 @@ textarea.form-control {
 .team-img {
     width: 120px;
     height: 120px;
-    border-radius: 50%;
+    /* CHANGED: 32px creates a beautiful, modern 'squircle' shape */
+    border-radius: 32px; 
     background: #1a1a1a;
     margin: 0 auto 1.5rem auto;
-    border: 3px solid var(--accent-cyan);
+    /* CHANGED: Solid black outline */
+    border: 4px solid #000000; 
     object-fit: cover;
     display: block;
+    /* ADDED: A subtle drop shadow so the black border pops against the dark card */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); 
 }
 
 .team-role {
