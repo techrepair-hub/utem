@@ -1,8 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // ----------------------------------------------------
-    // 1. Sliding Portfolio Carousel & Before/After Toggle
-    // ----------------------------------------------------
     const track = document.getElementById('carousel-track');
     const prevBtn = document.getElementById('prev-slide-btn');
     const nextBtn = document.getElementById('next-slide-btn');
@@ -129,9 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
         checkCustomField(); 
     }
 
-    // ----------------------------------------------------
-    // 4. Form Submission, Memory, & Local Database Array
-    // ----------------------------------------------------
     const forms = document.querySelectorAll('form');
     
     forms.forEach(form => {
@@ -182,21 +176,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ----------------------------------------------------
+    // 5. Administrator Login, Persistent Sessions & Live DB
+    // ----------------------------------------------------
+    
+    // A. Make the "ADMIN" navigation button smart on EVERY page
+    const adminNavBtns = document.querySelectorAll('.btn-admin');
+    const loggedInAdmin = localStorage.getItem('techRepairAdmin'); // Using localStorage for permanent memory!
+    
+    if (loggedInAdmin) {
+        // If they are already logged in, clicking "ADMIN" goes straight to the dashboard!
+        adminNavBtns.forEach(btn => {
+            btn.href = "admin.html";
+        });
+    }
+
+    // B. Handle Login Attempt on login.html
     const loginForm = document.getElementById('admin-login-form');
     if (loginForm) {
+        
+        // If they accidentally end up on the login page while already logged in, bounce them to the dashboard!
+        if (loggedInAdmin) {
+            window.location.href = "admin.html";
+        }
+
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const user = document.getElementById('admin-user').value.toLowerCase(); // Ignore case sensitivity
+            const user = document.getElementById('admin-user').value.toLowerCase(); 
             const pass = document.getElementById('admin-pass').value;
             const btn = loginForm.querySelector('button');
 
             const validUsers = [
                 { username: 'admin', password: 'admin123' },
                 { username: 'lecturer', password: 'berc2393' },
-                { username: 'syamil', password: 'dev123' },
-                { username: 'ashraf', password: 'dev123' },
-                { username: 'aiman', password: 'dev123' },
-                { username: 'amir', password: 'dev123' }
+                { username: 'syamil', password: 'dev' },
+                { username: 'ashraf', password: 'dev' },
+                { username: 'aiman', password: 'dev' },
+                { username: 'amir', password: 'dev' }
             ];
 
             const isAuthenticated = validUsers.some(account => 
@@ -204,7 +220,8 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             if (isAuthenticated) {
-                sessionStorage.setItem('techRepairAdmin', user); 
+
+                localStorage.setItem('techRepairAdmin', user); 
                 btn.textContent = "Authenticating...";
                 btn.style.background = "#10b981"; 
                 btn.style.pointerEvents = "none";
@@ -216,28 +233,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // C. Admin Dashboard Data Visualization & Security
     if (window.location.pathname.includes('admin.html')) {
-        const loggedInUser = sessionStorage.getItem('techRepairAdmin');
-
-        // Security check
-        if (!loggedInUser) {
+        
+        if (!loggedInAdmin) {
             window.location.href = "login.html";
         }
 
         const adminDisplay = document.getElementById('admin-user-display');
         if (adminDisplay) {
-            adminDisplay.textContent = `[ADMIN MODE: ${loggedInUser.toUpperCase()}]`;
+            adminDisplay.textContent = `[ADMIN MODE: ${loggedInAdmin.toUpperCase()}]`;
         }
+
 
         const logoutBtn = document.getElementById('logout-btn');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                sessionStorage.removeItem('techRepairAdmin');
+                // Destroys the login memory when clicked!
+                localStorage.removeItem('techRepairAdmin');
                 window.location.href = "login.html";
             });
         }
 
+        // Load the Live Database into the Table
         const dbBody = document.getElementById('admin-database-body');
         if (dbBody) {
             let ticketDB = JSON.parse(localStorage.getItem('techRepair_TicketDB')) || [];
@@ -260,6 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Clear Database Button
         const clearBtn = document.getElementById('clear-db-btn');
         if (clearBtn) {
             clearBtn.addEventListener('click', () => {
