@@ -182,9 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ----------------------------------------------------
-    // 5. Administrator Login & Live Database View
-    // ----------------------------------------------------
     const loginForm = document.getElementById('admin-login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
@@ -196,10 +193,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const validUsers = [
                 { username: 'admin', password: 'admin123' },
                 { username: 'lecturer', password: 'berc2393' },
-                { username: 'syamil', password: 'dev' },
-                { username: 'ashraf', password: 'dev' },
-                { username: 'aiman', password: 'dev' },
-                { username: 'amir', password: 'dev' }
+                { username: 'syamil', password: 'dev123' },
+                { username: 'ashraf', password: 'dev123' },
+                { username: 'aiman', password: 'dev123' },
+                { username: 'amir', password: 'dev123' }
             ];
 
             const isAuthenticated = validUsers.some(account => 
@@ -207,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             if (isAuthenticated) {
-                // NEW: Save the actual typed username into memory!
                 sessionStorage.setItem('techRepairAdmin', user); 
                 btn.textContent = "Authenticating...";
                 btn.style.background = "#10b981"; 
@@ -221,7 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (window.location.pathname.includes('admin.html')) {
-        // Fetch the name of the user who logged in
         const loggedInUser = sessionStorage.getItem('techRepairAdmin');
 
         // Security check
@@ -229,7 +224,6 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = "login.html";
         }
 
-        // SMART FEATURE: Update the header to display [ADMIN MODE: USERNAME]
         const adminDisplay = document.getElementById('admin-user-display');
         if (adminDisplay) {
             adminDisplay.textContent = `[ADMIN MODE: ${loggedInUser.toUpperCase()}]`;
