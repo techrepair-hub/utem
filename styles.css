@@ -121,6 +121,19 @@ body {
     box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
 }
 
+.btn-admin {
+    background: #f59e0b; 
+    color: var(--amoled-black) !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.btn-admin:hover {
+    background: var(--text-bright);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.6); 
+}
+
 /* --- PARALLAX HERO --- */
 .hero {
     margin-top: 70px; /* Accounts for sticky header */

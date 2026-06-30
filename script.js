@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ----------------------------------------------------
-    // 2. Scroll Reveal Animation Logic (Fixes the invisible blank pages!)
+    // 2. Scroll Reveal Animation Logic
     // ----------------------------------------------------
     const reveals = document.querySelectorAll('.reveal');
     const revealOptions = {
@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const customServiceInput = document.getElementById('custom-service-details');
 
     if (serviceSelect) {
-        // Auto-Select from URL parameter
         const urlParams = new URLSearchParams(window.location.search);
         const serviceParam = urlParams.get('service');
         
@@ -116,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Hide/Show "Custom Request" box
         const checkCustomField = () => {
             if (serviceSelect.value === 'other-custom') {
                 if (customServiceGroup) customServiceGroup.classList.add('show');
@@ -132,13 +130,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ----------------------------------------------------
-    // 4. Formspree UI Update & LocalStorage Memory
+    // 4. Form Submission, Memory, & Local Database Array
     // ----------------------------------------------------
-    // This finds ANY form on the page (booking or contact)
     const forms = document.querySelectorAll('form');
     
     forms.forEach(form => {
-        // Load Memory (if inputs exist on the page)
+
+        if (form.id === 'admin-login-form') return;
+
         const nameInput = form.querySelector('[name="Customer_Name"], [name="Contact_Name"]');
         const phoneInput = form.querySelector('[name="Phone_Number"]');
         const emailInput = form.querySelector('[name="email"], [name="Contact_Email"]');
@@ -147,18 +146,134 @@ document.addEventListener('DOMContentLoaded', () => {
         if (phoneInput && localStorage.getItem('techRepair_Phone')) phoneInput.value = localStorage.getItem('techRepair_Phone');
         if (emailInput && localStorage.getItem('techRepair_Email')) emailInput.value = localStorage.getItem('techRepair_Email');
 
-        // Save memory and update button when clicked
+        const nextInput = form.querySelector('input[name="_next"]');
+        if (nextInput) {
+            let currentUrl = window.location.href;
+            let successUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/')) + '/success.html';
+            nextInput.value = successUrl;
+        }
+
         form.addEventListener('submit', () => {
             if (nameInput) localStorage.setItem('techRepair_Name', nameInput.value);
             if (phoneInput) localStorage.setItem('techRepair_Phone', phoneInput.value);
             if (emailInput) localStorage.setItem('techRepair_Email', emailInput.value);
 
+            let ticketDB = JSON.parse(localStorage.getItem('techRepair_TicketDB')) || [];
+            const serviceSelectDB = document.getElementById('service-cat');
+            const deviceModelDB = document.getElementById('device-model');
+            
+            const newTicket = {
+                date: new Date().toLocaleString(),
+                name: nameInput ? nameInput.value : 'Unknown',
+                email: emailInput ? emailInput.value : 'Unknown',
+                service: serviceSelectDB ? serviceSelectDB.options[serviceSelectDB.selectedIndex].text : 'General Inquiry / Contact',
+                device: deviceModelDB ? deviceModelDB.value : 'N/A'
+            };
+
+            ticketDB.push(newTicket);
+            localStorage.setItem('techRepair_TicketDB', JSON.stringify(ticketDB));
+
             const submitBtn = form.querySelector('button[type="submit"]');
             if (submitBtn) {
-                submitBtn.textContent = "Submitting ticket...";
+                submitBtn.textContent = "Transmitting to Lab...";
                 submitBtn.style.opacity = "0.7";
                 submitBtn.style.pointerEvents = "none";
             }
         });
     });
+
+    // ----------------------------------------------------
+    // 5. Administrator Login & Live Database View
+    // ----------------------------------------------------
+    const loginForm = document.getElementById('admin-login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('admin-user').value.toLowerCase(); // Ignore case sensitivity
+            const pass = document.getElementById('admin-pass').value;
+            const btn = loginForm.querySelector('button');
+
+            const validUsers = [
+                { username: 'admin', password: 'admin123' },
+                { username: 'lecturer', password: 'berc2393' },
+                { username: 'syamil', password: 'dev' },
+                { username: 'ashraf', password: 'dev' },
+                { username: 'aiman', password: 'dev' },
+                { username: 'amir', password: 'dev' }
+            ];
+
+            const isAuthenticated = validUsers.some(account => 
+                account.username === user && account.password === pass
+            );
+
+            if (isAuthenticated) {
+                // NEW: Save the actual typed username into memory!
+                sessionStorage.setItem('techRepairAdmin', user); 
+                btn.textContent = "Authenticating...";
+                btn.style.background = "#10b981"; 
+                btn.style.pointerEvents = "none";
+                setTimeout(() => { window.location.href = "admin.html"; }, 1000);
+            } else {
+                alert('Access Denied: Invalid credentials. Please try again.');
+                document.getElementById('admin-pass').value = ''; 
+            }
+        });
+    }
+
+    if (window.location.pathname.includes('admin.html')) {
+        // Fetch the name of the user who logged in
+        const loggedInUser = sessionStorage.getItem('techRepairAdmin');
+
+        // Security check
+        if (!loggedInUser) {
+            window.location.href = "login.html";
+        }
+
+        // SMART FEATURE: Update the header to display [ADMIN MODE: USERNAME]
+        const adminDisplay = document.getElementById('admin-user-display');
+        if (adminDisplay) {
+            adminDisplay.textContent = `[ADMIN MODE: ${loggedInUser.toUpperCase()}]`;
+        }
+
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                sessionStorage.removeItem('techRepairAdmin');
+                window.location.href = "login.html";
+            });
+        }
+
+        const dbBody = document.getElementById('admin-database-body');
+        if (dbBody) {
+            let ticketDB = JSON.parse(localStorage.getItem('techRepair_TicketDB')) || [];
+            
+            if (ticketDB.length === 0) {
+                dbBody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#9ca3af;">No tickets currently in the database. Go submit a booking!</td></tr>`;
+            } else {
+                for (let i = ticketDB.length - 1; i >= 0; i--) {
+                    const ticket = ticketDB[i];
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td style="color:var(--accent-cyan); font-size: 0.85rem;">${ticket.date}</td>
+                        <td style="font-weight:bold; color:var(--text-bright);">${ticket.name}</td>
+                        <td>${ticket.email}</td>
+                        <td>${ticket.service}</td>
+                        <td style="color:#9ca3af;">${ticket.device}</td>
+                    `;
+                    dbBody.appendChild(row);
+                }
+            }
+        }
+
+        const clearBtn = document.getElementById('clear-db-btn');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to permanently delete all local ticket data?')) {
+                    localStorage.removeItem('techRepair_TicketDB');
+                    window.location.reload(); 
+                }
+            });
+        }
+    }
 });

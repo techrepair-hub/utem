@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | TechRepairHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .login-wrapper {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .login-card {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-cyan);
+            border-top: 5px solid var(--accent-cyan);
+            padding: 3rem 2.5rem;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 40px rgba(0, 210, 255, 0.15);
+        }
+        .login-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TechRepair<span class="accent">Hub</span></a>
+            <nav class="nav-bar">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="booking.html" class="btn-nav">Book Repair</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-wrapper inner-page-pt">
+        <div class="login-wrapper reveal">
+            <div class="login-card">
+                <div class="login-icon">🔒</div>
+                <h2 style="text-align: center; color: var(--text-bright); margin-bottom: 0.5rem;">Admin Access</h2>
+                <p style="text-align: center; color: #9ca3af; margin-bottom: 2rem; font-size: 0.9rem;">Please enter editor credentials</p>
+                
+                <form id="admin-login-form">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="admin-user" class="form-control" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="admin-pass" class="form-control" placeholder="" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Secure Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="reveal">
+        <div class="footer-bottom" style="border-top: none; padding-bottom: 2rem;">
+            &copy; 2026 TechRepairHub.com | Formulated for the BERC2393 Academic Framework.
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

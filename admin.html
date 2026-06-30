@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor Dashboard | TechRepairHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <!-- ADDED ID TO THE ADMIN MODE TEXT HERE -->
+            <a href="index.html" class="logo">TechRepair<span class="accent">Hub</span> <span id="admin-user-display" style="color: #ef4444; font-size: 0.9rem; margin-left: 10px; font-weight: bold;">[ADMIN MODE]</span></a>
+            <nav class="nav-bar">
+                <ul>
+                    <li><a href="#" id="logout-btn" style="color: #ef4444; font-weight: bold;">Log Out</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-wrapper inner-page-pt">
+        <main class="container">
+            <div class="section-header">
+                <h2 class="section-title">System Editor Dashboard</h2>
+                <div class="title-underline"></div>
+                <p class="subtitle">Welcome back. Manage the website source code and view incoming repair tickets below.</p>
+            </div>
+            
+            <div class="grid-cards" style="margin-bottom: 3rem;">
+
+                <div class="card" style="border-top: 4px solid #10b981; max-width: none;">
+                    <div class="card-icon">👨‍💻</div>
+                    <h3 style="color: var(--text-bright);">Source Code Editor</h3>
+                    <p>Modify HTML, CSS, and JavaScript files directly inside the GitHub repository editor.</p>
+                    <a href="https://github.com/techrepair-hub/utem" target="_blank" class="btn btn-secondary" style="margin-top:auto; text-align:center; border-color: #10b981; color: #10b981;">Open GitHub Repository</a>
+                </div>
+
+                <!-- Formspree Access Panel -->
+                <div class="card" style="border-top: 4px solid #3a7bd5; max-width: none;">
+                    <div class="card-icon">🗄️</div>
+                    <h3 style="color: var(--text-bright);">Formspree Backend</h3>
+                    <p>View the raw email submissions and manage the server-side API configurations.</p>
+                    <a href="https://formspree.io/login" target="_blank" class="btn btn-secondary" style="margin-top:auto; text-align:center; border-color: #3a7bd5; color: #3a7bd5;">Open Formspree Dashboard</a>
+                </div>
+            </div>
+
+            <!-- LIVE DATABASE UI -->
+            <div class="section-header" style="margin-top: 4rem;">
+                <h2 class="section-title">Live Ticketing Database</h2>
+                <div class="title-underline"></div>
+                <p class="subtitle">Real-time local tracking of customer submissions.</p>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date / Time</th>
+                            <th>Customer Name</th>
+                            <th>Email Address</th>
+                            <th>Service Requested</th>
+                            <th>Device Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-database-body">
+                        <!-- JavaScript will automatically inject the database rows here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="text-align: right; margin-top: 1rem; margin-bottom: 4rem;">
+                <button id="clear-db-btn" class="btn" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid #ef4444; font-size: 0.9rem;">🗑️ Clear Local Database</button>
+            </div>
+
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
