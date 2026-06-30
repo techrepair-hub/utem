@@ -209,10 +209,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const validUsers = [
                 { username: 'admin', password: 'admin123' },
                 { username: 'lecturer', password: 'berc2393' },
-                { username: 'syamil', password: 'dev' },
-                { username: 'ashraf', password: 'dev' },
-                { username: 'aiman', password: 'dev' },
-                { username: 'amir', password: 'dev' }
+                { username: 'syamil', password: 'dev123' },
+                { username: 'ashraf', password: 'dev123' },
+                { username: 'aiman', password: 'dev123' },
+                { username: 'amir', password: 'dev123' }
             ];
 
             const isAuthenticated = validUsers.some(account => 
